@@ -26,16 +26,22 @@ public class Program {
        String lastName = scan.nextLine();
        List<Person> match = people.stream().filter(person -> person.getLastName().equalsIgnoreCase(lastName)).toList();
        match.forEach(person -> System.out.println(person.getFirstName() + " " + person.getLastName() + " " + person.getAge()));
+//
+//        Integer maxAge = people.stream().max(Comparator.comparing(person -> person.getAge())).get().getAge();
+//        System.out.println(maxAge);
+//
+//        Integer minAge = people.stream().min(Comparator.comparing(person -> person.getAge())).get().getAge();
+//        System.out.println(minAge);
 
-        Integer maxAge = people.stream().max(Comparator.comparing(person -> person.getAge())).get().getAge();
-        System.out.println(maxAge);
+        List<Person> sortedList = people.stream().sorted(Person::compareTo).toList();
+        int minAge = sortedList.get(0).getAge();
+        int maxAge = sortedList.get(sortedList.size()-1).getAge();
+        System.out.println("Minimum Age: " + minAge +"\n"+
+                "Maximum Age: "+ maxAge);
 
-        Integer minAge = people.stream().min(Comparator.comparing(person -> person.getAge())).get().getAge();
-        System.out.println(minAge);
+        double avgAge = people.stream().collect(Collectors.averagingInt(person -> person.getAge()));
 
-
-
-
+        System.out.println("The average age is: " + avgAge);
 
     }
 
